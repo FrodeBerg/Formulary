@@ -1,0 +1,46 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link href="{% static 'formulary/style.css' %}" rel="stylesheet">
+    </head>
+    <body>
+        <div class="nav">
+            <ul>
+                <div id="indicator"></div>
+                <li>
+                    <a onclick="moveIndicator('51px')">Math</a>
+                </li>
+                <li class="physics" >
+                    <a onclick="moveIndicator('200px')">Physics</a>
+                </li>
+                <script>
+                    document.addEventListener('DOMContentLoaded', () => {
+                        moveIndicator('51px')
+                    })
+                    function moveIndicator(move){
+                        math = document.querySelector("#math_form");
+                        physics = document.querySelector("#physics_form");
+                        if (move == '51px'){
+                            math.hidden = false;
+                            physics.hidden = true;
+                        }
+                        else{
+                            math.hidden = true;
+                            physics.hidden = false;
+                        }
+                        document.querySelector("#indicator").style.left = move;
+                    }
+                </script>
+            </ul>
+            <hr class="border">      
+            <div class="content">
+                <div id="physics_form" hidden>Physics formulas</div>
+                <div id="math_form" hidden>Math formulas</div>            
+            </div>                   
+        </div>
+
+
+    </body>
+</html>

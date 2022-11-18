@@ -1,0 +1,72 @@
+
+:root {
+    --clr: rgb(155, 155, 155);
+}
+
+body{
+    background-color: var(--clr);
+}
+
+
+
+.nav {
+    width:80%;
+    height: 20%;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav ul {
+    list-style-type: none;
+    padding: 0;
+    width: 300px;
+    margin: 51px;
+}
+
+.nav ul li {
+    width: 70px;
+    height: 30px;
+    position: absolute;
+    color: white;
+    margin: 0;
+    align-items: center;
+}
+.nav ul a {
+    display: block;
+    color: inherit;
+    text-decoration: inherit;  
+    position: relative;
+    top: 20%;
+    height: auto;
+    color: white;
+    margin: 0;
+    text-align: center;
+}
+
+.physics {
+    left: 200px;
+}
+
+#indicator {
+    position: absolute;
+    width: 70px;
+    height: 30px;
+    background-color: var(--clr);
+    border-top:    1px solid white;
+    border-right:  1px solid white; 
+    border-left: 1px solid white;
+    margin: 0;
+    transition: 0.5s;
+    transition-property: left;
+
+}
+
+.border {
+    margin-top: 80px;
+}
+
+.content {
+    margin: 50px;
+    color: white;
+}
