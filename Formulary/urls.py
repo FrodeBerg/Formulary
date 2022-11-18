@@ -17,6 +17,6 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    path('Formulary/', include('Formulary_Project.urls')),
+    path('', include('Formulary_Project.urls')),
     path('admin/', admin.site.urls),
 ]
