@@ -36,8 +36,20 @@
             </ul>
             <hr class="border">      
             <div class="content">
-                <div id="physics_form" hidden>Physics formulas</div>
-                <div id="math_form" hidden>Math formulas</div>            
+                <div id="physics_form" hidden>
+                    {% for physic in physics %}
+                        {% for formula in physic.formula %}
+                            {{ formula.formula }}
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+                <div id="math_form" hidden>                    
+                    {% for math in maths %}
+                        <h2>{{ math.category }}</h2>
+                        <h4>{{ math.formula.all }}</h4>
+                        <hr>
+                    {% endfor %}
+                </div>            
             </div>                   
         </div>
 
