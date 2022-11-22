@@ -17,13 +17,13 @@
                 </li>
                 <li id="settings">
                     <button onclick="showVariables('Results in:')">+</button>
-                    <ul id="results">
+                    <div id="results">
 
-                    </ul>
+                    </div>
                     <h4>=</h4>
-                    <ul id="using">
+                    <div id="using">
 
-                    </ul>
+                    </div>
                     <button onclick="showVariables('Uses:')">+</button>
                 </li>
                 <li class="variables" >
@@ -67,9 +67,7 @@
 
                         if (document.querySelector("#variable_text").innerHTML == "Results in:"){
                             let results = document.querySelector("#results");
-                            console.log(li.style.offsetWidth)
-                            results.style.width = `${70}px`;
-                            results.append(li);
+                            results.appendChild(li);
                         }
                         else{
                             document.querySelector("#using").append(li)
