@@ -81,13 +81,14 @@ body{
 }
 
 #settings {
-    width: fit-content;
+    width: 200px;
     left: 400px;
     align-items: center;
 }
 
 #settings > * {
     position: relative;
+    width: fit-content;
     display: inline-block;
     margin: 0;
     top: 20%;
@@ -99,6 +100,10 @@ body{
     border: white solid 1px;
     color: white;
     border-radius: 0;    
+}
+
+#settings ul{
+    height: 14px;
 }
 
 #info_form h5{

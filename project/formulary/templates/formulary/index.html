@@ -17,13 +17,13 @@
                 </li>
                 <li id="settings">
                     <button onclick="showVariables('Results in:')">+</button>
-                    <div id="results">
+                    <ul id="results">
 
-                    </div>
+                    </ul>
                     <h4>=</h4>
-                    <div id="using">
+                    <ul id="using">
 
-                    </div>
+                    </ul>
                     <button onclick="showVariables('Uses:')">+</button>
                 </li>
                 <li class="variables" >
@@ -49,7 +49,7 @@
                         // Move indicator
                         document.querySelector("#indicator").style.left = move;
                     }
-
+                    
                     function showVariables(name){
                         document.querySelector("#variable_menu").hidden = false;
                         document.querySelector("#variable_text").innerHTML = name;
@@ -58,6 +58,27 @@
                     function hideVariables(){
                         document.querySelector("#variable_menu").hidden = true;
                     }
+
+                    function addVariable(name){
+                        var li = document.createElement("li");
+                        li.setAttribute("id", name);
+                        li.setAttribute("onclick", "removeVariable(this)")
+                        li.innerHTML = name;
+
+                        if (document.querySelector("#variable_text").innerHTML == "Results in:"){
+                            let results = document.querySelector("#results");
+                            console.log(li.style.offsetWidth)
+                            results.style.width = `${70}px`;
+                            results.append(li);
+                        }
+                        else{
+                            document.querySelector("#using").append(li)
+                        }
+                    }
+
+                    function removeVariable(element){
+                        element.remove();
+                    }
                 </script>
             </ul>
             <hr class="border">     
@@ -65,7 +86,7 @@
                 <li id="variable_text">
                 </li>
                 {% for variable in mathVariables %}
-                    <li>{{ variable.variable }}</li>
+                    <li onclick="addVariable('{{ variable.variable }}')">{{ variable.variable }}</li>
                 {% endfor %}
             </ul>           
             <div class="content">
