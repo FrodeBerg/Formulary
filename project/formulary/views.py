@@ -6,10 +6,12 @@ from django.http import HttpResponse
 
 
 def index(request):
+    variable_Math = Variable_Math.objects.all() 
     category_math = Category_Math.objects.all()
     category_phy = Category_Phy.objects.all()
 
     return render(request, 'formulary/index.html', {
         "maths" : category_math,
-        "physics": category_phy
+        "physics": category_phy,
+        "mathVariables": variable_Math
     })

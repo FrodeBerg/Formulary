@@ -9,34 +9,67 @@
         <div class="nav">
             <ul>
                 <div id="indicator"></div>
-                <li>
-                    <a onclick="moveIndicator('51px')">Math</a>
+                <li id="maths">
+                    <a onclick="moveIndicator('51px', 'math_form')">Math</a>
                 </li>
                 <li class="physics" >
-                    <a onclick="moveIndicator('200px')">Physics</a>
+                    <a onclick="moveIndicator('200px', 'physics_form')">Physics</a>
+                </li>
+                <li id="settings">
+                    <button onclick="showVariables('Results in:')">+</button>
+                    <div id="results">
+
+                    </div>
+                    <h4>=</h4>
+                    <div id="using">
+
+                    </div>
+                    <button onclick="showVariables('Uses:')">+</button>
+                </li>
+                <li class="variables" >
+                    <a onclick="moveIndicator('1400px', 'variables_form')">Variables</a>
+                </li>
+                <li class="info" >
+                    <a onclick="moveIndicator('-200px', 'info_form')">I</a>
                 </li>
                 <script>
                     document.addEventListener('DOMContentLoaded', () => {
-                        moveIndicator('51px')
+                        moveIndicator('-200px', 'info_form');
                     })
-                    function moveIndicator(move){
-                        math = document.querySelector("#math_form");
-                        physics = document.querySelector("#physics_form");
-                        if (move == '51px'){
-                            math.hidden = false;
-                            physics.hidden = true;
-                        }
-                        else{
-                            math.hidden = true;
-                            physics.hidden = false;
-                        }
+                    function moveIndicator(move, element){
+                        // Hide variables
+                        hideVariables();
+                        // Hide all menus
+                        document.querySelector("#math_form").hidden = true;
+                        document.querySelector("#physics_form").hidden = true;
+                        document.querySelector("#variables_form").hidden = true;
+                        document.querySelector("#info_form").hidden = true;
+                        // Show current one
+                        document.querySelector(`#${element}`).hidden = false;
+                        // Move indicator
                         document.querySelector("#indicator").style.left = move;
+                    }
+
+                    function showVariables(name){
+                        document.querySelector("#variable_menu").hidden = false;
+                        document.querySelector("#variable_text").innerHTML = name;
+                    }
+
+                    function hideVariables(){
+                        document.querySelector("#variable_menu").hidden = true;
                     }
                 </script>
             </ul>
-            <hr class="border">      
+            <hr class="border">     
+            <ul id="variable_menu" hidden>
+                <li id="variable_text">
+                </li>
+                {% for variable in mathVariables %}
+                    <li>{{ variable.variable }}</li>
+                {% endfor %}
+            </ul>           
             <div class="content">
-                <div id="physics_form" hidden>
+                <div id="physics_form" hidden>      
                     {% for physic in physics %}
                         {% for formula in physic.formula %}
                             {{ formula.formula }}
@@ -46,10 +79,21 @@
                 <div id="math_form" hidden>                    
                     {% for math in maths %}
                         <h2>{{ math.category }}</h2>
-                        <h4>{{ math.formula.all }}</h4>
                         <hr>
+                        {% for formula in math.formula.all %}
+                            <h4>{{ formula }}</h4>
+                        {% endfor %}
                     {% endfor %}
-                </div>            
+                </div>     
+                <div id="variables_form" hidden>                    
+
+                </div>          
+                <div id="info_form" hidden>                    
+                    <h5 style="margin-left: 50px;">^ Click a category!</h5>
+                    <h5 style="margin-left: 75px;">Sort by resulting variables!^</h5>
+                    <h5 style="margin-left: 20px;">^ Sort by requierd variables!</h5>
+                    <h5 style="margin-left: 1000px;">Click me to access me again! ^</h5>
+                </div>             
             </div>                   
         </div>
 

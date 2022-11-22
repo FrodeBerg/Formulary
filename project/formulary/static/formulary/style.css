@@ -7,8 +7,6 @@ body{
     background-color: var(--clr);
 }
 
-
-
 .nav {
     width:80%;
     height: 20%;
@@ -48,6 +46,15 @@ body{
     left: 200px;
 }
 
+.variables {
+    left: 1400px;
+}
+
+.info {
+    width: 18px;
+    left: 1480px;
+}
+
 #indicator {
     position: absolute;
     width: 70px;
@@ -64,9 +71,68 @@ body{
 
 .border {
     margin-top: 80px;
+    margin-bottom: 0;
 }
 
 .content {
-    margin: 50px;
+    margin: 20px;
+    margin-top: 20px;
     color: white;
 }
+
+#settings {
+    width: fit-content;
+    left: 400px;
+    align-items: center;
+}
+
+#settings > * {
+    position: relative;
+    display: inline-block;
+    margin: 0;
+    top: 20%;
+
+}
+
+#settings > button{
+    background-color: var(--clr);
+    border: white solid 1px;
+    color: white;
+    border-radius: 0;    
+}
+
+#info_form h5{
+    position: relative;
+    display: inline-block;
+    margin: 0;
+    top: 20%;
+}
+
+#variable_menu {
+    position: relative;
+    left: 350px;
+    width: fit-content;
+    height: fit-content;
+    min-width: 100px;
+    max-width: 700px;
+    height: 30px;
+    background-color: var(--clr);
+    border-bottom:    1px solid white;
+    border-right:  1px solid white;     
+    border-left: 1px solid white;
+    margin: 0;
+    top: -1px;
+    align-items: center;
+}
+
+#variable_menu li {
+    width: fit-content;
+    height: fit-content;
+    padding-left: 5px;
+    padding-right: 5px;
+    position: static;
+    margin: 5px;
+    display: inline-block;
+    border: white 1px solid;
+}
+
