@@ -1,20 +1,20 @@
 from django.db import models
 
 # Create your models here.
+# Categories
 
 # All physics formulas and variables
 class Variable_Phy(models.Model):
     description = models.CharField(blank=True, max_length=100)
     variable = models.CharField(max_length=5)
+    def __str__(self):
+        return self.variable
 class Formula_Phy(models.Model):
     formula = models.CharField(max_length=20)
     result = models.ManyToManyField(Variable_Phy ,related_name="product")
     using = models.ManyToManyField(Variable_Phy ,related_name="requierd")
-
-class Category_Phy(models.Model):
-    category = models.CharField(max_length=20)
-    formula = models.ManyToManyField(Formula_Phy, related_name="category_phy")
-
+    def __str__(self):
+        return self.formula
 
 # All math formulas and variables
 class Variable_Math(models.Model):
@@ -28,10 +28,6 @@ class Formula_Math(models.Model):
     using = models.ManyToManyField(Variable_Math, related_name="requierd")
     def __str__(self):
         return self.formula
-class Category_Math(models.Model):
-    category = models.CharField(max_length=20)
-    formula = models.ManyToManyField(Formula_Math, related_name="category_math")
-    def __str__(self):
-        return self.category
+
 
 
