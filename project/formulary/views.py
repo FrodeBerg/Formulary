@@ -18,14 +18,3 @@ def index(request):
         "variables": variables
     })
     
-# Physics
-def physics(request):
-    global categories
-    global variables
-    variables = Variable_Phy.objects.all() 
-
-# Math
-def math(request):
-    global categories
-    global variables
-    variables = Variable_Math.objects.all() 
