@@ -4,3 +4,4 @@ from .models import *
 
 admin.site.register(Variable)
 admin.site.register(Formula)
+admin.site.register(Category)

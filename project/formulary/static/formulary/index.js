@@ -5,30 +5,38 @@ function moveIndicator(move){
     // Move indicator
     document.querySelector("#indicator").style.left = move;
 
-    let subject = ""
-    // Fetch data 
-    if (move='51px'){
-        subject = "math";
-    }else if (move='200px'){
-        subject = "physics";
-    } else {
-        return;
+    // Clear categories tab
+    document.querySelector("#categories").innerHTML = ""
+}
+
+function getFormula(math){
+    if (math == "math"){
+        moveIndicator("51px");
+    } else{
+        moveIndicator("200px")
     }
-    fetch(`/${subject}`)
-    .then(response => response.json())
-    .then((category, variable) => {
-        category.forEach(element => {
-            console.log(element);
-            var div = document.createElement("div");
-            div.innerHTML= `<h3>${element.category}</h3>`;
-            element.formula.forEach(element => {
-                li = document.createElement("li");
-                li.innerHTML = element;
-                div.append(li);
+
+    // get formula
+    fetch(`/formula/${math}`)
+        .then(response => response.json())
+        .then(formulas => {
+            categories = document.querySelector("#categories");
+            formulas.forEach(element => {
+                div = document.querySelector(`#category_${element.category}`);
+                if (div == null){
+                    div = document.createElement("div");
+                    div.setAttribute("id", `#category_${element.category}`)
+                    h3 = document.createElement("h3");
+                    h3.innerHTML = element.category;
+                    div.append(h3);
+                    categories.append(div);
+                }
+                h5 = document.createElement("h5");
+                console.log(element.formula)
+                h5.innerHTML = element.formula;
+                div.append(h5);
             });
-            document.querySelector("#categories").append(ul);
-        });
-    })
+    });
 }
 
 function showVariables(name){
