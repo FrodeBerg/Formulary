@@ -1,12 +1,26 @@
 document.addEventListener('DOMContentLoaded', () => {
     moveIndicator('-200px');
 })
+
+
 function moveIndicator(move){
     // Move indicator
     document.querySelector("#indicator").style.left = move;
 
     // Clear categories tab
-    document.querySelector("#categories").innerHTML = ""
+    document.querySelector("#categories").innerHTML = "";
+
+    // Clear variable options 
+    document.querySelector("#options_using").innerHTML = "";
+    document.querySelector("#options_results").innerHTML = "";
+
+     // Hide variable options
+    hideVariables("results");
+    hideVariables("using");
+
+    // arrays with variables
+    var results = [];
+    var using = [];
 }
 
 function getFormula(math){
@@ -22,10 +36,35 @@ function getFormula(math){
         .then(formulas => {
             categories = document.querySelector("#categories");
             formulas.forEach(element => {
+                // Add variables to using option
+                element.using.forEach(variable => {
+                    button = document.getElementById(`using_${variable}`);
+                    if (button == null){
+                        button = document.createElement("button");
+                        button.setAttribute("id", `using_${variable}`);
+                        button.setAttribute("onclick", `add("${variable}", "using")`)
+                        button.innerHTML = variable;
+                        document.getElementById("options_using").append(button);
+                    }
+                });
+
+                // Add variables to product option
+                element.product.forEach(variable => {
+                    button = document.getElementById(`results_${variable}`);
+                    if (button == null){
+                        button = document.createElement("button");
+                        button.setAttribute("id", `results_${variable}`);
+                        button.setAttribute("onclick", `add("${variable}", "results")`)
+                        button.innerHTML = variable;
+                        document.getElementById("options_results").append(button);
+                    }
+                });
+
+                // Add every category and related formulas
                 div = document.querySelector(`#category_${element.category}`);
                 if (div == null){
                     div = document.createElement("div");
-                    div.setAttribute("id", `#category_${element.category}`)
+                    div.setAttribute("id", `#category_${element.category}`);
                     h3 = document.createElement("h3");
                     h3.innerHTML = element.category;
                     div.append(h3);
@@ -40,29 +79,38 @@ function getFormula(math){
 }
 
 function showVariables(name){
-    document.querySelector("#variable_menu").hidden = false;
-    document.querySelector("#variable_text").innerHTML = name;
-}
 
-function hideVariables(){
-    document.querySelector("#variable_menu").hidden = true;
-}
 
-function addVariable(name){
-    var li = document.createElement("li");
-    li.setAttribute("id", name);
-    li.setAttribute("onclick", "removeVariable(this)")
-    li.innerHTML = name;
-
-    if (document.querySelector("#variable_text").innerHTML == "Results in:"){
-        let results = document.querySelector("#results");
-        results.appendChild(li);
+    // Show Active
+    button = document.getElementById(`options_${name}`);
+    if (button.style.display == "none"){
+        // Hide variable options
+        hideVariables("results");
+        hideVariables("using");        
+        button.style.display = "inline-block";        
+    }else {
+        button.style.display = "none";             
     }
-    else{
-        document.querySelector("#using").append(li)
-    }
+
 }
 
-function removeVariable(element){
-    element.remove();
+function hideVariables(name){
+    document.getElementById(`options_${name}`).style.display = "none";
+}
+
+function add(variable, name){
+    element = document.querySelector(`#${name}_${variable}`);
+    button = document.getElementById(`active_${name}_${variable}`);
+    // Create/ remove, select and deselect button
+    if (button == null){
+        button = document.createElement("button");
+        button.setAttribute("id", `active_${name}_${variable}`);
+        button.innerHTML = variable;
+        button.setAttribute("onclick", `add("${variable}", "${name}")`);
+        document.querySelector(`#${name}`).append(button);
+        element.style.backgroundColor = "grey";      
+    } else {
+        element.style.backgroundColor = "";     
+        button.remove();
+    }
 }

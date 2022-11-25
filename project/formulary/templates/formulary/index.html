@@ -17,15 +17,23 @@
                     <a onclick="getFormula('physics')">Physics</a>
                 </li>
                 <li id="settings">
-                    <button onclick="showVariables('Results in:')">+</button>
-                    <div id="results">
+                    <ul>
+                        <li>
+                            <div id="results"><button onclick="showVariables('results')">Results in:</button></div>
+                                     
+                            <div id="options_results" hidden>
 
-                    </div>
-                    <h4>=</h4>
-                    <div id="using">
+                            </div>               
+                        </li>
+                        <li id="using_li">
+ 
+                            <div id="using"><button onclick="showVariables('using')">Uses:</button></div>
+                            <div id="options_using" hidden>
 
-                    </div>
-                    <button onclick="showVariables('Uses:')">+</button>
+                            </div>
+                            
+                        </li>
+                    </ul>
                 </li>
                 <li class="variables" >
                     <a onclick="moveIndicator('1400px')">Variables</a>
@@ -36,13 +44,7 @@
 
             </ul>
             <hr class="border">     
-            <ul id="variable_menu" hidden>
-                <li id="variable_text">
-                </li>
-                {% for variable in mathVariables %}
-                    <li onclick="addVariable('{{ variable.variable }}')">{{ variable.variable }}</li>
-                {% endfor %}
-            </ul>           
+      
             <div class="content">
                 <div id="categories">      
 
