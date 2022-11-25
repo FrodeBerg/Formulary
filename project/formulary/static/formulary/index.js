@@ -1,7 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
     moveIndicator('-200px');
 })
-
+// Global variables
+var dict = {
+    "results": [],
+    "using": []
+}
 
 function moveIndicator(move){
     // Move indicator
@@ -14,13 +18,19 @@ function moveIndicator(move){
     document.querySelector("#options_using").innerHTML = "";
     document.querySelector("#options_results").innerHTML = "";
 
+    // Clear selected variables
+    document.querySelector("#using").innerHTML = `<button onclick="showVariables('using')">Uses:</button>`;
+    document.querySelector("#results").innerHTML = `<button onclick="showVariables('results')">Results in:</button>`;
+
      // Hide variable options
     hideVariables("results");
     hideVariables("using");
 
-    // arrays with variables
-    var results = [];
-    var using = [];
+    // dict with arrays 
+    dict = {
+        "results": [],
+        "using": []
+    }
 }
 
 function getFormula(math){
@@ -79,8 +89,6 @@ function getFormula(math){
 }
 
 function showVariables(name){
-
-
     // Show Active
     button = document.getElementById(`options_${name}`);
     if (button.style.display == "none"){
@@ -91,7 +99,6 @@ function showVariables(name){
     }else {
         button.style.display = "none";             
     }
-
 }
 
 function hideVariables(name){
@@ -99,6 +106,7 @@ function hideVariables(name){
 }
 
 function add(variable, name){
+    let tmp = dict[name];
     element = document.querySelector(`#${name}_${variable}`);
     button = document.getElementById(`active_${name}_${variable}`);
     // Create/ remove, select and deselect button
@@ -108,9 +116,13 @@ function add(variable, name){
         button.innerHTML = variable;
         button.setAttribute("onclick", `add("${variable}", "${name}")`);
         document.querySelector(`#${name}`).append(button);
-        element.style.backgroundColor = "grey";      
+        element.style.backgroundColor = "grey";     
+        tmp.push(variable);
     } else {
         element.style.backgroundColor = "";     
         button.remove();
+        tmp.splice(tmp.indexOf(variable), 1);
     }
+    dict[name] = tmp;
+    console.log(dict);
 }
