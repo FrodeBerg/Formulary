@@ -28,8 +28,8 @@ class Category(models.Model):
 # Formulas
 class Formula(models.Model):
     formula = models.CharField(max_length=20)
-    using = models.ManyToManyField(Variable, related_name="using", blank=True)
-    product = models.ManyToManyField(Variable, related_name="product", blank=True)
+    using = models.ManyToManyField(Variable, related_name="uses", blank=True)
+    product = models.ManyToManyField(Variable, related_name="products", blank=True)
     math = models.BooleanField(default=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     def serialize(self):

@@ -6,8 +6,15 @@ var dict = {
     "results": [],
     "using": []
 }
+var global_math = "";
 
 function moveIndicator(move){
+    if (move == "51px"){
+        getFormula("math")
+    }
+    if (move == "200px"){
+        getFormula("physics")
+    }
     // Move indicator
     document.querySelector("#indicator").style.left = move;
 
@@ -34,14 +41,16 @@ function moveIndicator(move){
 }
 
 function getFormula(math){
-    if (math == "math"){
-        moveIndicator("51px");
-    } else{
-        moveIndicator("200px")
-    }
 
+    // Clear categories tab
+    document.querySelector("#categories").innerHTML = "";
+
+    global_math = math;
+
+    let results = dict["results"].join("+").toString();
+    let using = dict["using"].join("+").toString();
     // get formula
-    fetch(`/formula/${math}`)
+    fetch(`/formula/${math}/?r=${results}&u=${using}`)
         .then(response => response.json())
         .then(formulas => {
             categories = document.querySelector("#categories");
@@ -74,7 +83,7 @@ function getFormula(math){
                 div = document.querySelector(`#category_${element.category}`);
                 if (div == null){
                     div = document.createElement("div");
-                    div.setAttribute("id", `#category_${element.category}`);
+                    div.setAttribute("id", `category_${element.category}`);
                     h3 = document.createElement("h3");
                     h3.innerHTML = element.category;
                     div.append(h3);
@@ -124,5 +133,7 @@ function add(variable, name){
         tmp.splice(tmp.indexOf(variable), 1);
     }
     dict[name] = tmp;
+  
     console.log(dict);
+    getFormula(global_math);
 }
