@@ -21,12 +21,12 @@ def formula(request, name):
     variable_res = Variable.objects.filter(variable__in=result[0].split())
     variable_use = Variable.objects.filter(variable__in=using[0].split())
     # Get Formulas connected to variable
-    previous_res = Formula.objects.none()
+    previous_res = Formula.objects.all()
     for var in variable_res:
-        previous_res = previous_res | var.products.all()
-    previous_use = Formula.objects.none()
+        previous_res = previous_res & var.products.all()
+    previous_use = Formula.objects.all()
     for var in variable_use:
-        previous_use = previous_use | var.uses.all()
+        previous_use = previous_use & var.uses.all()
     # If empty use all values
     if not previous_use.exists():
         previous_use = Formula.objects.all()

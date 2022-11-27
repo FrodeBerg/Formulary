@@ -86,6 +86,7 @@ function getFormula(math){
                     div.setAttribute("id", `category_${element.category}`);
                     h3 = document.createElement("h3");
                     h3.innerHTML = element.category;
+                    div.append(document.createElement("hr"));
                     div.append(h3);
                     categories.append(div);
                 }
