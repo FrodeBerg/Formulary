@@ -2,36 +2,51 @@ from django.db import models
 
 # Create your models here.
 
-# All physics formulas and variables
-class Variable_Phy(models.Model):
-    description = models.CharField(blank=True, max_length=100)
+# Variables
+class Variable(models.Model):
     variable = models.CharField(max_length=5)
-class Formula_Phy(models.Model):
-    formula = models.CharField(max_length=20)
-    result = models.ManyToManyField(Variable_Phy ,related_name="product")
-    using = models.ManyToManyField(Variable_Phy ,related_name="requierd")
-
-class Category_Phy(models.Model):
-    category = models.CharField(max_length=20)
-    formula = models.ManyToManyField(Formula_Phy, related_name="category_phy")
-
-
-# All math formulas and variables
-class Variable_Math(models.Model):
-    description = models.CharField(max_length=100, blank=True)
-    variable = models.CharField(max_length=5)
+    description = models.CharField(max_length=50, blank=True)
+    def serialize(self):
+        return {
+            "id": self.id,
+            "variable": self.variable,
+            "description": self.description
+        }
     def __str__(self):
         return self.variable
-class Formula_Math(models.Model):
+        
+# Categories
+class Category(models.Model):
+    name = models.CharField(max_length=20)
+    def serialize(self):
+        return {
+            "name" : self.name
+        }
+    def __str__(self):
+        return self.name
+
+# Formulas
+class Formula(models.Model):
     formula = models.CharField(max_length=20)
-    result = models.ManyToManyField(Variable_Math ,related_name="product")
-    using = models.ManyToManyField(Variable_Math, related_name="requierd")
+    using = models.ManyToManyField(Variable, related_name="uses", blank=True)
+    product = models.ManyToManyField(Variable, related_name="products", blank=True)
+    math = models.BooleanField(default=True)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    def serialize(self):
+        return {
+            "id": self.id,
+            "formula": self.formula,
+            "using": [variable.variable for variable in self.using.all()],
+            "product": [variable.variable for variable in self.product.all()],
+            "math": self.math,
+            "category": self.category.name
+        }
     def __str__(self):
         return self.formula
-class Category_Math(models.Model):
-    category = models.CharField(max_length=20)
-    formula = models.ManyToManyField(Formula_Math, related_name="category_math")
-    def __str__(self):
-        return self.category
+
+
+
+
+
 
 

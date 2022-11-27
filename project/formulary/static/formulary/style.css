@@ -66,7 +66,6 @@ body{
     margin: 0;
     transition: 0.5s;
     transition-property: left;
-
 }
 
 .border {
@@ -81,30 +80,40 @@ body{
 }
 
 #settings {
-    width: 200px;
+    width: auto;
     left: 400px;
     align-items: center;
 }
 
-#settings > * {
+#settings ul {
     position: relative;
+    top: -50px;
     width: fit-content;
-    display: inline-block;
-    margin: 0;
-    top: 20%;
-
-}
-
-#settings > button{
     background-color: var(--clr);
-    border: white solid 1px;
-    color: white;
-    border-radius: 0;    
+    border-bottom: solid white 1px;
 }
 
-#settings ul{
-    height: 14px;
+#settings ul li {
+    width: auto;
+    height: fit-content;
+    position: relative;
+    padding: 5px;
 }
+#settings ul li div{
+    display: inline-block;
+}
+
+#settings ul li button{
+    background-color: var(--clr);
+    color: white;
+    border: solid white 1px;
+}
+
+#using_li {
+    border-left: solid white 1px;
+    border-right: solid white 1px;;
+}
+
 
 #info_form h5{
     position: relative;
@@ -113,31 +122,5 @@ body{
     top: 20%;
 }
 
-#variable_menu {
-    position: relative;
-    left: 350px;
-    width: fit-content;
-    height: fit-content;
-    min-width: 100px;
-    max-width: 700px;
-    height: 30px;
-    background-color: var(--clr);
-    border-bottom:    1px solid white;
-    border-right:  1px solid white;     
-    border-left: 1px solid white;
-    margin: 0;
-    top: -1px;
-    align-items: center;
-}
 
-#variable_menu li {
-    width: fit-content;
-    height: fit-content;
-    padding-left: 5px;
-    padding-right: 5px;
-    position: static;
-    margin: 5px;
-    display: inline-block;
-    border: white 1px solid;
-}
 

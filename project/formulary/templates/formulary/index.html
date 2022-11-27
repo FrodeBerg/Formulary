@@ -4,108 +4,51 @@
 <html lang="en">
     <head>
         <link href="{% static 'formulary/style.css' %}" rel="stylesheet">
+        <script src="{% static 'formulary/index.js' %}"></script>
     </head>
     <body>
         <div class="nav">
             <ul>
                 <div id="indicator"></div>
                 <li id="maths">
-                    <a onclick="moveIndicator('51px', 'math_form')">Math</a>
+                    <a onclick="moveIndicator('51px')">Math</a>
                 </li>
                 <li class="physics" >
-                    <a onclick="moveIndicator('200px', 'physics_form')">Physics</a>
+                    <a onclick="moveIndicator('200px')">Physics</a>
                 </li>
                 <li id="settings">
-                    <button onclick="showVariables('Results in:')">+</button>
-                    <ul id="results">
+                    <ul>
+                        <li>
+                            <div id="results"><button onclick="showVariables('results')">Results in:</button></div>
+                                     
+                            <div id="options_results" hidden>
 
-                    </ul>
-                    <h4>=</h4>
-                    <ul id="using">
+                            </div>               
+                        </li>
+                        <li id="using_li">
+ 
+                            <div id="using"><button onclick="showVariables('using')">Uses:</button></div>
+                            <div id="options_using" hidden>
 
+                            </div>
+                            
+                        </li>
                     </ul>
-                    <button onclick="showVariables('Uses:')">+</button>
                 </li>
                 <li class="variables" >
-                    <a onclick="moveIndicator('1400px', 'variables_form')">Variables</a>
+                    <a onclick="moveIndicator('1400px')">Variables</a>
                 </li>
                 <li class="info" >
-                    <a onclick="moveIndicator('-200px', 'info_form')">I</a>
+                    <a onclick="moveIndicator('-200px')">I</a>
                 </li>
-                <script>
-                    document.addEventListener('DOMContentLoaded', () => {
-                        moveIndicator('-200px', 'info_form');
-                    })
-                    function moveIndicator(move, element){
-                        // Hide variables
-                        hideVariables();
-                        // Hide all menus
-                        document.querySelector("#math_form").hidden = true;
-                        document.querySelector("#physics_form").hidden = true;
-                        document.querySelector("#variables_form").hidden = true;
-                        document.querySelector("#info_form").hidden = true;
-                        // Show current one
-                        document.querySelector(`#${element}`).hidden = false;
-                        // Move indicator
-                        document.querySelector("#indicator").style.left = move;
-                    }
-                    
-                    function showVariables(name){
-                        document.querySelector("#variable_menu").hidden = false;
-                        document.querySelector("#variable_text").innerHTML = name;
-                    }
 
-                    function hideVariables(){
-                        document.querySelector("#variable_menu").hidden = true;
-                    }
-
-                    function addVariable(name){
-                        var li = document.createElement("li");
-                        li.setAttribute("id", name);
-                        li.setAttribute("onclick", "removeVariable(this)")
-                        li.innerHTML = name;
-
-                        if (document.querySelector("#variable_text").innerHTML == "Results in:"){
-                            let results = document.querySelector("#results");
-                            console.log(li.style.offsetWidth)
-                            results.style.width = `${70}px`;
-                            results.append(li);
-                        }
-                        else{
-                            document.querySelector("#using").append(li)
-                        }
-                    }
-
-                    function removeVariable(element){
-                        element.remove();
-                    }
-                </script>
             </ul>
             <hr class="border">     
-            <ul id="variable_menu" hidden>
-                <li id="variable_text">
-                </li>
-                {% for variable in mathVariables %}
-                    <li onclick="addVariable('{{ variable.variable }}')">{{ variable.variable }}</li>
-                {% endfor %}
-            </ul>           
+      
             <div class="content">
-                <div id="physics_form" hidden>      
-                    {% for physic in physics %}
-                        {% for formula in physic.formula %}
-                            {{ formula.formula }}
-                        {% endfor %}
-                    {% endfor %}
-                </div>
-                <div id="math_form" hidden>                    
-                    {% for math in maths %}
-                        <h2>{{ math.category }}</h2>
-                        <hr>
-                        {% for formula in math.formula.all %}
-                            <h4>{{ formula }}</h4>
-                        {% endfor %}
-                    {% endfor %}
-                </div>     
+                <div id="categories">      
+
+                </div>    
                 <div id="variables_form" hidden>                    
 
                 </div>          
