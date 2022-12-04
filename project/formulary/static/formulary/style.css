@@ -122,5 +122,6 @@ body{
     top: 20%;
 }
 
-
-
+p * {
+    display: inline-block !important;
+}

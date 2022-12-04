@@ -80,22 +80,36 @@ function getFormula(math){
                 });
 
                 // Add every category and related formulas
-                div = document.querySelector(`#category_${element.category}`);
+                div = document.querySelector(`#category_${element.tag}`);
                 if (div == null){
                     div = document.createElement("div");
-                    div.setAttribute("id", `category_${element.category}`);
+                    div.setAttribute("id", `category_${element.tag}`);
                     h3 = document.createElement("h3");
                     h3.innerHTML = element.category;
                     div.append(document.createElement("hr"));
                     div.append(h3);
                     categories.append(div);
                 }
-                h5 = document.createElement("h5");
-                console.log(element.formula)
-                h5.innerHTML = element.formula;
-                div.append(h5);
-            });
+                // Formula and description
+                ul = document.createElement("ul");
+                ul.style.width = "auto";
+                p1 = document.createElement("p");
+                p1.innerHTML = element.formula;
+                p1.style.width = "fit-content";
+                p1.style.display = "inline-block";
+                p2 = document.createElement("p");
+                p2.innerHTML = element.description;
+                p2.style.width = "fit-content";
+                p2.style.float = "right";
+                ul.style.margin = "0";
+                ul.append(p1);
+                ul.append(p2);
+                div.append(ul);
+                
+            }); 
+            MathJax.typeset();                    
     });
+
 }
 
 function showVariables(name){

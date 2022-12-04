@@ -1,10 +1,24 @@
 {% load static %}
+{% load mathjax %}
 
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <link href="{% static 'formulary/style.css' %}" rel="stylesheet">
         <script src="{% static 'formulary/index.js' %}"></script>
+        <script>
+            MathJax = {
+                tex: {
+                    inlineMath: [['$', '$'], ['\\(', '\\)']]
+                },
+                svg: {
+                    fontCache: 'global'
+                },
+            };
+            </script>
+            <script type="text/javascript" id="MathJax-script" async
+              src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+            </script>
     </head>
     <body>
         <div class="nav">
@@ -45,9 +59,9 @@
             </ul>
             <hr class="border">     
       
-            <div class="content">
+            <div class="content">      
                 <div id="categories">      
-
+   
                 </div>    
                 <div id="info_form" hidden>                    
                     <h5 style="margin-left: 50px;">^ Click a category!</h5>
