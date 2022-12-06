@@ -7,6 +7,11 @@ body{
     background-color: var(--clr);
 }
 
+h2 * {
+    text-align: left !important;
+    margin-left: 0 !important;
+}
+
 .nav {
     width:80%;
     height: 20%;
@@ -87,10 +92,9 @@ body{
 
 #settings ul {
     position: relative;
-    top: -50px;
+    top: -51px;
     width: fit-content;
     background-color: var(--clr);
-    border-bottom: solid white 1px;
 }
 
 #settings ul li {
@@ -109,9 +113,11 @@ body{
     border: solid white 1px;
 }
 
-#using_li {
+#variables {
+    top: 1px;
     border-left: solid white 1px;
-    border-right: solid white 1px;;
+    border-right: solid white 1px;
+    border-bottom: solid white 1px;
 }
 
 
@@ -124,4 +130,9 @@ body{
 
 p * {
     display: inline-block !important;
+}
+
+button * {
+    display: inline-block !important;
+    margin: 0 !important;
 }

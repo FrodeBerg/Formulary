@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    moveIndicator('-200px');
+    moveIndicator('200px');
 })
 // Global variables
 var dict = {
@@ -33,6 +33,10 @@ function moveIndicator(move){
     hideVariables("results");
     hideVariables("using");
 
+    document.getElementById('results').children[0].style.backgroundColor = "";
+    document.getElementById('using').children[0].style.backgroundColor = "";
+    document.getElementById('variables').hidden = true;
+
     // dict with arrays 
     dict = {
         "results": [],
@@ -54,74 +58,107 @@ function getFormula(math){
         .then(response => response.json())
         .then(formulas => {
             categories = document.querySelector("#categories");
-            formulas.forEach(element => {
-                // Add variables to using option
-                element.using.forEach(variable => {
-                    button = document.getElementById(`using_${variable}`);
-                    if (button == null){
-                        button = document.createElement("button");
-                        button.setAttribute("id", `using_${variable}`);
-                        button.setAttribute("onclick", `add("${variable}", "using")`)
-                        button.innerHTML = variable;
-                        document.getElementById("options_using").append(button);
-                    }
-                });
-
-                // Add variables to product option
-                element.product.forEach(variable => {
-                    button = document.getElementById(`results_${variable}`);
-                    if (button == null){
-                        button = document.createElement("button");
-                        button.setAttribute("id", `results_${variable}`);
-                        button.setAttribute("onclick", `add("${variable}", "results")`)
-                        button.innerHTML = variable;
-                        document.getElementById("options_results").append(button);
-                    }
-                });
-
-                // Add every category and related formulas
-                div = document.querySelector(`#category_${element.tag}`);
-                if (div == null){
+            // Combined Formulas
+            if (formulas.isCombined){
+                if (formulas.combinedFormula.length < 1){
+                    h2 = document.createElement("h2");
+                    h2.innerHTML = "No formulas Found";
+                    categories.append("h2");
+                }
+                for (let i = 0; i < formulas.combinedFormula.length; i++){
                     div = document.createElement("div");
-                    div.setAttribute("id", `category_${element.tag}`);
-                    h3 = document.createElement("h3");
-                    h3.innerHTML = element.category;
+                    h2 = document.createElement("h2");
+                    h2.innerHTML = formulas.combinedFormula[i];
                     div.append(document.createElement("hr"));
-                    div.append(h3);
+                    div.append(h2);
+                    spaces = ""
+                    formulas.formulas[i].forEach(element => {
+                        spaces += "&emsp;&emsp;&emsp;"
+                        p = document.createElement("p");
+                        p.innerHTML = spaces + element.formula;
+                        div.append(p);
+                    })
                     categories.append(div);
                 }
-                // Formula and description
-                ul = document.createElement("ul");
-                ul.style.width = "auto";
-                p1 = document.createElement("p");
-                p1.innerHTML = element.formula;
-                p1.style.width = "fit-content";
-                p1.style.display = "inline-block";
-                p2 = document.createElement("p");
-                p2.innerHTML = element.description;
-                p2.style.width = "fit-content";
-                p2.style.float = "right";
-                ul.style.margin = "0";
-                ul.append(p1);
-                ul.append(p2);
-                div.append(ul);
-                
-            }); 
+            }
+            // Normal Formulas
+            if (formulas.isCombined == false){
+                    formulas.formulas.forEach(element => {
+                    // Add variables to using option
+                    element.using.forEach(variable => {
+                        button = document.getElementById(`using_${variable}`);
+                        if (button == null){
+                            button = document.createElement("button");
+                            button.setAttribute("id", `using_${variable}`);
+                            button.setAttribute("onclick", `add("${variable}", "using")`)
+                            button.innerHTML =  "\\[" + variable + "\\]";
+                            document.getElementById("options_using").append(button);
+                        }
+                    });
+
+                    // Add variables to product option
+                    element.product.forEach(variable => {
+                        button = document.getElementById(`results_${variable}`);
+                        if (button == null){
+                            button = document.createElement("button");
+                            button.setAttribute("id", `results_${variable}`);
+                            button.setAttribute("onclick", `add("${variable}", "results")`)
+                            button.innerHTML = "\\[" + variable + "\\]";
+                            document.getElementById("options_results").append(button);
+                        }
+                    });
+
+                    // Add every category and related formulas
+                    div = document.querySelector(`#category_${element.tag}`);
+                    if (div == null){
+                        div = document.createElement("div");
+                        div.setAttribute("id", `category_${element.tag}`);
+                        h3 = document.createElement("h3");
+                        h3.innerHTML = element.category;
+                        div.append(document.createElement("hr"));
+                        div.append(h3);
+                        categories.append(div);
+                    }
+                    // Formula and description
+                    ul = document.createElement("ul");
+                    ul.style.width = "auto";
+                    p1 = document.createElement("p");
+                    p1.innerHTML = element.formula;
+                    p1.style.width = "fit-content";
+                    p1.style.display = "inline-block";
+                    p2 = document.createElement("p");
+                    p2.innerHTML = element.description;
+                    p2.style.width = "fit-content";
+                    p2.style.float = "right";
+                    ul.style.margin = "0";
+                    ul.append(p1);
+                    ul.append(p2);
+                    div.append(ul);
+                    
+                });                
+            }
+             
             MathJax.typeset();                    
     });
 
 }
 
 function showVariables(name){
+    document.getElementById('results').children[0].style.backgroundColor = "";
+    document.getElementById('using').children[0].style.backgroundColor = "";
     // Show Active
     button = document.getElementById(`options_${name}`);
+    variables = document.querySelector('#variables');
     if (button.style.display == "none"){
         // Hide variable options
         hideVariables("results");
         hideVariables("using");        
-        button.style.display = "inline-block";        
+        button.style.display = "inline-block";    
+        document.getElementById(`${name}`).children[0].style.backgroundColor = "grey";  
+        variables.hidden = false;  
     }else {
-        button.style.display = "none";             
+        button.style.display = "none";        
+        variables.hidden = true;               
     }
 }
 
@@ -137,7 +174,7 @@ function add(variable, name){
     if (button == null){
         button = document.createElement("button");
         button.setAttribute("id", `active_${name}_${variable}`);
-        button.innerHTML = variable;
+        button.innerHTML = "\\[" + variable + "\\]";
         button.setAttribute("onclick", `add("${variable}", "${name}")`);
         document.querySelector(`#${name}`).append(button);
         element.style.backgroundColor = "grey";     
@@ -151,4 +188,5 @@ function add(variable, name){
   
     console.log(dict);
     getFormula(global_math);
+    MathJax.typeset();
 }

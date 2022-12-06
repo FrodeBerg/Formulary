@@ -4,7 +4,7 @@ from django.db import models
 
 # Variables
 class Variable(models.Model):
-    variable = models.CharField(max_length=5)
+    variable = models.CharField(max_length=20)
     description = models.CharField(max_length=50, blank=True)
     def serialize(self):
         return {
@@ -28,7 +28,7 @@ class Category(models.Model):
 
 # Formulas
 class Formula(models.Model):
-    formula = models.CharField(max_length=50)
+    formula = models.CharField(max_length=100)
     using = models.ManyToManyField(Variable, related_name="uses", blank=True)
     product = models.ManyToManyField(Variable, related_name="products", blank=True)
     math = models.BooleanField(default=True)
