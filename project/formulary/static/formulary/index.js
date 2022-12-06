@@ -121,28 +121,37 @@ function getFormula(math){
                     }
                     // Formula and description
                     ul = document.createElement("ul");
-                    ul.style.width = "auto";
+                    ul.setAttribute("class", "formulaList");
+                    p3 = document.createElement("p");
+                    element.variableDescription.forEach(description => {
+                        p3.innerHTML += description + "</br>";
+                    })
+                    p3.setAttribute("class", "formulaVariables");
+                    p3.setAttribute("id", `${element.id}`)
                     p1 = document.createElement("p");
+                    p1.setAttribute("onmouseover", `showVariableDescription(${element.id})`)
+                    p1.setAttribute("onmouseout", `hideVariableDescription(${element.id})`)
                     p1.innerHTML = element.formula;
-                    p1.style.width = "fit-content";
-                    p1.style.display = "inline-block";
+                    p1.setAttribute("class", "formula");
                     p2 = document.createElement("p");
                     p2.innerHTML = element.description;
-                    p2.style.width = "fit-content";
-                    p2.style.float = "right";
-                    ul.style.margin = "0";
+                    p2.setAttribute("class", "formulaDescription");                
                     ul.append(p1);
+                    ul.append(p3);
                     ul.append(p2);
                     div.append(ul);
                     
                 });                
             }
-             
             MathJax.typeset();                    
     });
-
 }
-
+function showVariableDescription(id){
+    document.getElementById(id).style.display = "inline-block";
+}
+function hideVariableDescription(id){
+    document.getElementById(id).style.display = "none";
+}
 function showVariables(name){
     document.getElementById('results').children[0].style.backgroundColor = "";
     document.getElementById('using').children[0].style.backgroundColor = "";

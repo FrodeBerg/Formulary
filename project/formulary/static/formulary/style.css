@@ -120,6 +120,34 @@ h2 * {
     border-bottom: solid white 1px;
 }
 
+.formula {
+    width: fit-content !important;
+    display: inline-block !important;
+}
+
+.formulaList {
+    width: auto !important;
+    margin: 0px !important;
+    height: fit-content !important;
+    align-items: center;    
+}
+
+.formulaVariables {
+    position: relative !important;
+    display: none;
+    height: auto;
+    margin-top: auto !important;
+    margin-bottom: auto !important;
+    margin-left: 20px !important;
+    border: solid white 1px;
+    padding: 5px;
+    top: 20px !important;    
+}
+
+.formulaDescription {
+    width: fit-content !important;
+    float: right !important;
+}
 
 #info_form h5{
     position: relative;
