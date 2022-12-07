@@ -26,8 +26,8 @@ function moveIndicator(move){
     document.querySelector("#options_results").innerHTML = "";
 
     // Clear selected variables
-    document.querySelector("#using").innerHTML = `<button onclick="showVariables('using')">Uses:</button>`;
-    document.querySelector("#results").innerHTML = `<button onclick="showVariables('results')">Results in:</button>`;
+    document.querySelector("#using").innerHTML = `&nbsp;<button onclick="showVariables('using')" id="using_button">+</button>`;
+    document.querySelector("#results").innerHTML = `<button onclick="showVariables('results')" id="results_button">+</button>&nbsp;`;
 
      // Hide variable options
     hideVariables("results");
@@ -164,8 +164,8 @@ function hideVariableDescription(element, id){
 
 }
 function showVariables(name){
-    document.getElementById('results').children[0].style.backgroundColor = "";
-    document.getElementById('using').children[0].style.backgroundColor = "";
+    document.getElementById('results_button').style.backgroundColor = "";
+    document.getElementById('using_button').style.backgroundColor = "";
     // Show Active
     button = document.getElementById(`options_${name}`);
     variables = document.querySelector('#variables');
@@ -174,7 +174,7 @@ function showVariables(name){
         hideVariables("results");
         hideVariables("using");        
         button.style.display = "inline-block";    
-        document.getElementById(`${name}`).children[0].style.backgroundColor = "grey";  
+        document.getElementById(`${name}_button`).style.backgroundColor = "grey";  
         variables.hidden = false;  
     }else {
         button.style.display = "none";        
@@ -190,17 +190,23 @@ function add(variable, name){
     let tmp = dict[name];
     element = document.querySelector(`#${name}_${variable}`);
     button = document.getElementById(`active_${name}_${variable}`);
+    element.style.backgroundColor = "";       
     // Create/ remove, select and deselect button
     if (button == null){
         button = document.createElement("button");
         button.setAttribute("id", `active_${name}_${variable}`);
         button.innerHTML = "\\[" + variable + "\\]";
         button.setAttribute("onclick", `add("${variable}", "${name}")`);
-        document.querySelector(`#${name}`).append(button);
+        if (name == "results"){
+            document.querySelector(`#${name}`).append(button);            
+        } else {
+            document.querySelector(`#${name}`).prepend(button);  
+        }
+
         element.style.backgroundColor = "grey";     
         tmp.push(variable);
     } else {
-        element.style.backgroundColor = "";     
+  
         button.remove();
         tmp.splice(tmp.indexOf(variable), 1);
     }
