@@ -71,14 +71,12 @@ function getFormula(math){
                     h2.innerHTML = formulas.combinedFormula[i];
                     div.append(document.createElement("hr"));
                     div.append(h2);
+                    categories.append(div);                    
                     spaces = ""
                     formulas.formulas[i].forEach(element => {
-                        spaces += "&emsp;&emsp;&emsp;"
-                        p = document.createElement("p");
-                        p.innerHTML = spaces + element.formula;
-                        div.append(p);
+                        spaces += "20px";
+                        createFormula(element, spaces, i + 1);
                     })
-                    categories.append(div);
                 }
             }
             // Normal Formulas
@@ -119,38 +117,51 @@ function getFormula(math){
                         div.append(h3);
                         categories.append(div);
                     }
-                    // Formula and description
-                    ul = document.createElement("ul");
-                    ul.setAttribute("class", "formulaList");
-                    p3 = document.createElement("p");
-                    element.variableDescription.forEach(description => {
-                        p3.innerHTML += description + "</br>";
-                    })
-                    p3.setAttribute("class", "formulaVariables");
-                    p3.setAttribute("id", `${element.id}`)
-                    p1 = document.createElement("p");
-                    p1.setAttribute("onmouseover", `showVariableDescription(${element.id})`)
-                    p1.setAttribute("onmouseout", `hideVariableDescription(${element.id})`)
-                    p1.innerHTML = element.formula;
-                    p1.setAttribute("class", "formula");
-                    p2 = document.createElement("p");
-                    p2.innerHTML = element.description;
-                    p2.setAttribute("class", "formulaDescription");                
-                    ul.append(p1);
-                    ul.append(p3);
-                    ul.append(p2);
-                    div.append(ul);
-                    
+
+                    createFormula(element, "0px", 1);                                                
                 });                
             }
             MathJax.typeset();                    
     });
 }
-function showVariableDescription(id){
-    document.getElementById(id).style.display = "inline-block";
+
+function createFormula(element, marginLeft, index) {
+
+    // Formula and description
+    ul = document.createElement("ul");
+    ul.setAttribute("class", "formulaList");
+    p3 = document.createElement("p");
+    element.variableDescription.forEach(description => {
+        p3.innerHTML += description + "</br>";
+    })
+    p3.setAttribute("class", "formulaVariables");
+    p3.setAttribute("id", `${element.id}i${index}`)
+    p1 = document.createElement("p");
+    p1.setAttribute("onmouseover", `showVariableDescription(this, '${element.id}i${index}')`)
+    p1.setAttribute("onmouseout", `hideVariableDescription(this, '${element.id}i${index}')`)
+    p1.innerHTML = element.formula;
+    p1.setAttribute("class", "formula");
+    p2 = document.createElement("p");
+    p2.innerHTML = element.description;
+    p2.setAttribute("class", "formulaDescription");                
+    ul.append(p1);
+    ul.append(p3);
+    ul.append(p2);
+    ul.style.marginLeft = marginLeft;
+    div.append(ul);   
+    hideVariableDescription(p1, element.id + "i" + index);     
 }
-function hideVariableDescription(id){
+
+function showVariableDescription(element, id){
+    console.log(id);
+    document.getElementById(id).style.display = "inline-block";
+    element.style.left = "10px";
+}
+function hideVariableDescription(element, id){
+    console.log(id);
     document.getElementById(id).style.display = "none";
+    element.style.left = "0px";
+
 }
 function showVariables(name){
     document.getElementById('results').children[0].style.backgroundColor = "";
