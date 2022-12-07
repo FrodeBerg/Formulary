@@ -35,7 +35,7 @@ function moveIndicator(move){
 
     document.getElementById('results').children[0].style.backgroundColor = "";
     document.getElementById('using').children[0].style.backgroundColor = "";
-    document.getElementById('variables').hidden = true;
+    document.getElementById('variables').className = "inactive";
 
     // dict with arrays 
     dict = {
@@ -184,23 +184,23 @@ function showVariables(name){
     // Show Active
     button = document.getElementById(`options_${name}`);
     variables = document.querySelector('#variables');
-    if (button.style.display == "none"){
+    if (button.style.display == "none" | variables.className == "inactive"){
+        variables.className = "inactive"; 
         // Hide variable options
         hideVariables("results");
         hideVariables("using");        
         button.style.display = "inline-block";    
         document.getElementById(`${name}_button`).style.backgroundColor = "grey";  
-        variables.hidden = false;  
-    }else {
-        button.style.display = "none";        
-        variables.hidden = true;               
+        variables.className = "active";
+    }else {       
+        variables.className = "inactive";           
     }
 }
 function hideVariables(name){
     document.getElementById(`options_${name}`).style.display = "none";
 }
 
-// Adds variable to sort
+// Add variable to sort
 function add(variable, name){
     let tmp = dict[name];
     element = document.querySelector(`#${name}_${variable}`);
@@ -226,7 +226,7 @@ function add(variable, name){
         button.remove();
         tmp.splice(tmp.indexOf(variable), 1);
     }
-    
+
     // Actual data updating
     dict[name] = tmp;
   

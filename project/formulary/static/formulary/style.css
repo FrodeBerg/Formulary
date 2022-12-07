@@ -94,7 +94,8 @@ h2 * {
     position: relative;
     top: -51px;
     width: fit-content;
-    background-color: var(--clr);
+    margin-left: 0;
+    margin-right: 0;
 }
 
 #settings ul li {
@@ -118,6 +119,17 @@ h2 * {
     border-left: solid white 1px;
     border-right: solid white 1px;
     border-bottom: solid white 1px;
+    background-color: var(--clr);
+    overflow:hidden;
+    transition:transform 0.3s ease-out; 
+    height:auto;
+    transform-origin:top;      
+}
+.active {
+    transform: scale3d(1, 1, 1);
+}
+.inactive {
+    transform: scale3d(0, 0, 0);
 }
 
 .formula {
