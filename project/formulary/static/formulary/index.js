@@ -53,119 +53,134 @@ function getFormula(math){
 
     let results = dict["results"].join("+").toString();
     let using = dict["using"].join("+").toString();
+
     // get formula
     fetch(`/formula/${math}/?r=${results}&u=${using}`)
-        .then(response => response.json())
-        .then(formulas => {
-            categories = document.querySelector("#categories");
-            // Combined Formulas
-            if (formulas.isCombined){
-                if (formulas.combinedFormula.length < 1){
-                    h2 = document.createElement("h2");
-                    h2.innerHTML = "No formulas Found";
-                    categories.append("h2");
-                }
-                for (let i = 0; i < formulas.combinedFormula.length; i++){
-                    div = document.createElement("div");
-                    h2 = document.createElement("h2");
-                    h2.innerHTML = formulas.combinedFormula[i];
-                    div.append(document.createElement("hr"));
-                    div.append(h2);
-                    categories.append(div);                    
-                    spaces = ""
-                    formulas.formulas[i].forEach(element => {
-                        spaces += "20px";
-                        createFormula(element, spaces, i + 1);
-                    })
-                }
-            }
-            // Normal Formulas
-            if (formulas.isCombined == false){
-                    formulas.formulas.forEach(element => {
-                    // Add variables to using option
-                    element.using.forEach(variable => {
-                        button = document.getElementById(`using_${variable}`);
-                        if (button == null){
-                            button = document.createElement("button");
-                            button.setAttribute("id", `using_${variable}`);
-                            button.setAttribute("onclick", `add("${variable}", "using")`)
-                            button.innerHTML =  "\\[" + variable + "\\]";
-                            document.getElementById("options_using").append(button);
-                        }
-                    });
+    .then(response => response.json())
+    .then(formulas => {
+        categories = document.querySelector("#categories");
 
-                    // Add variables to product option
-                    element.product.forEach(variable => {
-                        button = document.getElementById(`results_${variable}`);
-                        if (button == null){
-                            button = document.createElement("button");
-                            button.setAttribute("id", `results_${variable}`);
-                            button.setAttribute("onclick", `add("${variable}", "results")`)
-                            button.innerHTML = "\\[" + variable + "\\]";
-                            document.getElementById("options_results").append(button);
-                        }
-                    });
+        // Check if any formulas
+        if (formulas.formulas.length < 1){
+            h2 = document.createElement("h2");
+            h2.innerHTML = "No formulas Found";
+            categories.append(h2);
+        }
 
-                    // Add every category and related formulas
-                    div = document.querySelector(`#category_${element.tag}`);
-                    if (div == null){
-                        div = document.createElement("div");
-                        div.setAttribute("id", `category_${element.tag}`);
-                        h3 = document.createElement("h3");
-                        h3.innerHTML = element.category;
-                        div.append(document.createElement("hr"));
-                        div.append(h3);
-                        categories.append(div);
-                    }
+        // Normal Formulas
+        if (formulas.isCombined == false){
+            formulas.formulas.forEach(element => {
+                normalFormula(element);
+                createFormula(element, "0px", 1);                                                
+            });    
+            MathJax.typeset();  
+            return;          
+        }
 
-                    createFormula(element, "0px", 1);                                                
-                });                
-            }
-            MathJax.typeset();                    
+        // Combined Formulas
+        for (let i = 0; i < formulas.combinedFormula.length; i++){
+            div = document.createElement("div");
+            h2 = document.createElement("h2");
+            h2.innerHTML = formulas.combinedFormula[i];
+            div.append(document.createElement("hr"));
+            div.append(h2);
+            categories.append(div);                    
+            spaces = ""
+            formulas.formulas[i].forEach(element => {
+                spaces += "20px";
+                createFormula(element, spaces, i + 1);
+            })
+        }
+        MathJax.typeset();                
     });
+}
+
+function normalFormula(element){
+
+    // Add variables to using option
+    element.using.forEach(variable => {
+        formulaVariables(variable, "using");
+    });
+
+    // Add variables to product option
+    element.product.forEach(variable => {
+        formulaVariables(variable, "results");
+    });
+
+    // Add every category and related formulas
+    div = document.querySelector(`#category_${element.tag}`);
+    if (div == null){
+        div = document.createElement("div");
+        div.setAttribute("id", `category_${element.tag}`);
+        h3 = document.createElement("h3");
+        h3.innerHTML = element.category;
+        div.append(document.createElement("hr"));
+        div.append(h3);
+        categories.append(div);
+    }    
+}
+
+// Creates only valid variables 
+function formulaVariables(variable, name){
+    button = document.getElementById(`${name}_${variable}`);
+    if (button == null){
+        button = document.createElement("button");
+        button.setAttribute("id", `${name}_${variable}`);
+        button.setAttribute("onclick", `add("${variable}", "${name}")`)
+        button.innerHTML = "\\[" + variable + "\\]";
+        document.getElementById(`options_${name}`).append(button);
+    } 
 }
 
 function createFormula(element, marginLeft, index) {
 
-    // Formula and description
     ul = document.createElement("ul");
     ul.setAttribute("class", "formulaList");
-    p3 = document.createElement("p");
-    element.variableDescription.forEach(description => {
-        p3.innerHTML += description + "</br>";
-    })
-    p3.setAttribute("class", "formulaVariables");
-    p3.setAttribute("id", `${element.id}i${index}`)
+
+    // Formula
     p1 = document.createElement("p");
     p1.setAttribute("onmouseover", `showVariableDescription(this, '${element.id}i${index}')`)
     p1.setAttribute("onmouseout", `hideVariableDescription(this, '${element.id}i${index}')`)
     p1.innerHTML = element.formula;
     p1.setAttribute("class", "formula");
+
+    // Variable description
     p2 = document.createElement("p");
-    p2.innerHTML = element.description;
-    p2.setAttribute("class", "formulaDescription");                
-    ul.append(p1);
-    ul.append(p3);
-    ul.append(p2);
+    element.variableDescription.forEach(description => {
+        p2.innerHTML += description + "</br>";
+    })
+    p2.setAttribute("class", "formulaVariables");
+    p2.setAttribute("id", `${element.id}i${index}`)
+
+    // Formula description
+    p3 = document.createElement("p");
+    p3.innerHTML = element.description;
+    p3.setAttribute("class", "formulaDescription");                
+    ul.append(p1, p2, p3);
     ul.style.marginLeft = marginLeft;
     div.append(ul);   
     hideVariableDescription(p1, element.id + "i" + index);     
 }
 
+// Show description on hover
 function showVariableDescription(element, id){
     console.log(id);
     document.getElementById(id).style.display = "inline-block";
     element.style.left = "10px";
 }
+// Hide description on unhover
 function hideVariableDescription(element, id){
     console.log(id);
     document.getElementById(id).style.display = "none";
     element.style.left = "0px";
 
 }
+
+// When variable options clicked
 function showVariables(name){
     document.getElementById('results_button').style.backgroundColor = "";
     document.getElementById('using_button').style.backgroundColor = "";
+
     // Show Active
     button = document.getElementById(`options_${name}`);
     variables = document.querySelector('#variables');
@@ -181,17 +196,18 @@ function showVariables(name){
         variables.hidden = true;               
     }
 }
-
 function hideVariables(name){
     document.getElementById(`options_${name}`).style.display = "none";
 }
 
+// Adds variable to sort
 function add(variable, name){
     let tmp = dict[name];
     element = document.querySelector(`#${name}_${variable}`);
     button = document.getElementById(`active_${name}_${variable}`);
-    element.style.backgroundColor = "";       
-    // Create/ remove, select and deselect button
+    element.style.backgroundColor = "";  
+
+    // Create/remove, select and deselect button
     if (button == null){
         button = document.createElement("button");
         button.setAttribute("id", `active_${name}_${variable}`);
@@ -210,6 +226,8 @@ function add(variable, name){
         button.remove();
         tmp.splice(tmp.indexOf(variable), 1);
     }
+    
+    // Actual data updating
     dict[name] = tmp;
   
     console.log(dict);
