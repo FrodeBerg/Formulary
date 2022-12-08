@@ -37,7 +37,7 @@ class Formula(models.Model):
     def serialize(self):
         return {
             "id": self.id,
-            "formula": self.formula,
+            "formula": "\[" + self.formula + "\]",
             "using": [variable.variable for variable in self.using.all()],
             "product": [variable.variable for variable in self.product.all()],
             "variableDescription": [variable.variable + " = " + variable.description for variable in self.product.all()] + [variable.variable + " = " + variable.description for variable in self.using.all()],

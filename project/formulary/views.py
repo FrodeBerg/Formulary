@@ -69,7 +69,7 @@ def formula(request, name):
                         combinedFormula["isCombined"] = True
                         combined = None 
                         for form in formula_list[::-1]:
-                            form = form.formula                              
+                            form = "\[ " + form.formula + " \]"                         
                             if not combined:
                                 combined = form
                                 continue 

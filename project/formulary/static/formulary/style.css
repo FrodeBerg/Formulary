@@ -69,7 +69,7 @@ h2 * {
     border-right:  1px solid white; 
     border-left: 1px solid white;
     margin: 0;
-    transition: 0.5s;
+    transition: 0.5s ease-out;
     transition-property: left;
 }
 
@@ -116,6 +116,7 @@ h2 * {
 
 #variables {
     top: 1px;
+    width: fit-content !important;
     border-left: solid white 1px;
     border-right: solid white 1px;
     border-bottom: solid white 1px;
@@ -174,6 +175,7 @@ h2 * {
 
 p * {
     display: inline-block !important;
+    margin: 0 !important;
 }
 
 button * {

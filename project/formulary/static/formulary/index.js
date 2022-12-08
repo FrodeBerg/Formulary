@@ -191,7 +191,10 @@ function showVariables(name){
         hideVariables("using");        
         button.style.display = "inline-block";    
         document.getElementById(`${name}_button`).style.backgroundColor = "grey";  
-        variables.className = "active";
+        setTimeout(() => {
+            variables.className = "active";            
+        }, 100);
+
     }else {       
         variables.className = "inactive";           
     }
