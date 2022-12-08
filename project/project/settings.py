@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-nsoa*2dcb4^e477xttvhci=$*+m16z2ovfavj7s9%^+@(_6=y9
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['18.232.17.13']
+ALLOWED_HOSTS = ['18.232.17.13', 'formulary.link']
 
 
 # Application definition
