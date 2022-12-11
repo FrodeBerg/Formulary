@@ -188,12 +188,9 @@ button * {
     .nav ul li {
         width: 100px;
         height: 50px;
-    }
-    
-    .nav ul a {
         font-size: 24px;
     }
-
+    
     #indicator {
         width: 100px;
         height: 50px;

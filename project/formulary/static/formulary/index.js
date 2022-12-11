@@ -9,12 +9,7 @@ var dict = {
 var global_math = "";
 
 function moveIndicator(move){
-    if (move == "51px"){
-        getFormula("math")
-    }
-    if (move == "200px"){
-        getFormula("physics")
-    }
+
     // Move indicator
     document.querySelector("#indicator").style.left = move;
 
@@ -38,9 +33,15 @@ function moveIndicator(move){
     document.getElementById('variables').className = "inactive";
 
     // dict with arrays 
-    dict = {
-        "results": [],
-        "using": []
+    dict["results"] = [];
+    dict["using"] = [];
+
+    // Get appropriate formulas
+    if (move == "51px"){
+        getFormula("math")
+    }
+    if (move == "200px"){
+        getFormula("physics")
     }
 }
 
@@ -56,7 +57,7 @@ function getFormula(math){
     fetch(`/formula/${math}/?r=${results}&u=${using}`)
     .then(response => response.json())
     .then(formulas => {
-        
+
         // Clear categories tab
         document.querySelector("#categories").innerHTML = "";
 
