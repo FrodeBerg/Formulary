@@ -46,8 +46,6 @@ function moveIndicator(move){
 
 function getFormula(math){
 
-    // Clear categories tab
-    document.querySelector("#categories").innerHTML = "";
 
     global_math = math;
 
@@ -58,6 +56,10 @@ function getFormula(math){
     fetch(`/formula/${math}/?r=${results}&u=${using}`)
     .then(response => response.json())
     .then(formulas => {
+        
+        // Clear categories tab
+        document.querySelector("#categories").innerHTML = "";
+
         categories = document.querySelector("#categories");
 
         // Check if any formulas
@@ -212,8 +214,6 @@ function add(variable, name){
 
     // Create/remove, select and deselect button
     if (button == null){
-        tmp.push(variable);        
-        getFormula(global_math);
         button = document.createElement("button");
         button.setAttribute("id", `active_${name}_${variable}`);
         button.innerHTML = "\\[" + variable + "\\]";
@@ -225,9 +225,9 @@ function add(variable, name){
         }
 
         element.style.backgroundColor = "grey";     
+        tmp.push(variable);
     } else {
         tmp.splice(tmp.indexOf(variable), 1);  
-        getFormula(global_math);
         button.remove();
     }
 
@@ -235,6 +235,6 @@ function add(variable, name){
     dict[name] = tmp;
   
     console.log(dict);
-
+    getFormula(global_math);
     MathJax.typeset();
 }
