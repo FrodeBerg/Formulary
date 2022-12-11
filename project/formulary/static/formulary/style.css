@@ -28,8 +28,8 @@ h2 * {
 }
 
 .nav ul li {
-    width: 70px;
-    height: 30px;
+    width: .10vw;
+    height: .05vh;
     position: absolute;
     color: white;
     margin: 0;
