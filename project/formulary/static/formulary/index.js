@@ -211,18 +211,23 @@ function add(variable, name){
     let tmp = dict[name];
     element = document.querySelector(`#${name}_${variable}`);
     button = document.getElementById(`active_${name}_${variable}`);
+    list = document.getElementById(name);
     element.style.backgroundColor = "";  
 
     // Create/remove, select and deselect button
     if (button == null){
+        console.log(document.getElementById(name).childElementCount)
+        if (list.childElementCount >= 6){
+            return
+        }
         button = document.createElement("button");
         button.setAttribute("id", `active_${name}_${variable}`);
         button.innerHTML = "\\[" + variable + "\\]";
         button.setAttribute("onclick", `add("${variable}", "${name}")`);
         if (name == "results"){
-            document.querySelector(`#${name}`).append(button);            
+            list.append(button);            
         } else {
-            document.querySelector(`#${name}`).prepend(button);  
+            list.prepend(button);  
         }
 
         element.style.backgroundColor = "grey";     
