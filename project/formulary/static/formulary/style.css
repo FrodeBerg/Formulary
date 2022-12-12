@@ -201,6 +201,7 @@ button * {
 
     #settings ul li button{
         font-size: 24px;
+        padding: 3px;
     }
 
     #variables {
