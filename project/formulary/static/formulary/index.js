@@ -88,10 +88,10 @@ function getFormula(math){
             div.append(document.createElement("hr"));
             div.append(h2);
             categories.append(div);                    
-            spaces = ""
+            spaces = 0
             formulas.formulas[i].forEach(element => {
-                spaces += "20px";
-                createFormula(element, spaces, i + 1);
+                spaces += 20;
+                createFormula(element, `${spaces}px`, i + 1);
             })
         }
         MathJax.typeset();                
