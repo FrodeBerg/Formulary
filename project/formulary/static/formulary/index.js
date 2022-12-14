@@ -21,15 +21,13 @@ function moveIndicator(move){
     document.querySelector("#options_results").innerHTML = "";
 
     // Clear selected variables
-    document.querySelector("#using").innerHTML = `&nbsp;<button onclick="showVariables('using')" id="using_button">+</button>`;
-    document.querySelector("#results").innerHTML = `<button onclick="showVariables('results')" id="results_button">+</button>&nbsp;`;
+    document.querySelector("#using").innerHTML = "";
+    document.querySelector("#results").innerHTML = "";
 
      // Hide variable options
     hideVariables("results");
     hideVariables("using");
 
-    document.getElementById('results').children[0].style.backgroundColor = "";
-    document.getElementById('using').children[0].style.backgroundColor = "";
     document.getElementById('variables').className = "inactive";
 
     // dict with arrays 
@@ -181,8 +179,8 @@ function hideVariableDescription(element, id){
 
 // When variable options clicked
 function showVariables(name){
-    document.getElementById('results_button').style.backgroundColor = "";
-    document.getElementById('using_button').style.backgroundColor = "";
+    document.getElementById('results_button').removeAttribute("class");
+    document.getElementById('using_button').removeAttribute("class");
 
     // Show Active
     button = document.getElementById(`options_${name}`);
@@ -193,7 +191,7 @@ function showVariables(name){
         hideVariables("results");
         hideVariables("using");        
         button.style.display = "inline-block";    
-        document.getElementById(`${name}_button`).style.backgroundColor = "grey";  
+        document.getElementById(`${name}_button`).className = "check";  
         setTimeout(() => {
             variables.className = "active";            
         }, 100);
@@ -212,7 +210,7 @@ function add(variable, name){
     element = document.querySelector(`#${name}_${variable}`);
     button = document.getElementById(`active_${name}_${variable}`);
     list = document.getElementById(name);
-    element.style.backgroundColor = "";  
+    element.removeAttribute("class");  
 
     // Create/remove, select and deselect button
     if (button == null){
@@ -230,7 +228,7 @@ function add(variable, name){
             list.prepend(button);  
         }
 
-        element.style.backgroundColor = "grey";     
+        element.className = "check";     
         tmp.push(variable);
     } else {
         tmp.splice(tmp.indexOf(variable), 1);  

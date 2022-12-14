@@ -1,6 +1,8 @@
 
 :root {
-    --clr: rgb(155, 155, 155);
+    --clr: #434242;
+    --text-color: #F3EFE0;
+    --checked: #222222;
 }
 
 body{
@@ -31,7 +33,7 @@ h2 * {
     width: 70px;
     height: 30px;
     position: absolute;
-    color: white;
+    color: var(--text-color);
     margin: 0;
     align-items: center;
 }
@@ -43,7 +45,7 @@ h2 * {
     position: relative;
     top: 20%;
     height: auto;
-    color: white;
+    color: var(--text-color);
     margin: 0;
     text-align: center;
 }
@@ -66,12 +68,19 @@ h2 * {
     width: 70px;
     height: 30px;
     background-color: var(--clr);
-    border-top:    1px solid white;
-    border-right:  1px solid white; 
-    border-left: 1px solid white;
+    border-top:    1px solid var(--text-color);
+    border-right:  1px solid var(--text-color); 
+    border-left: 1px solid var(--text-color);
     margin: 0;
     transition: 0.5s ease-out;
     transition-property: left;
+}
+
+hr {
+    color: var(--clr);
+    background-color: var(--clr);
+    border: 1px solid var(--clr);
+    border-bottom: 1px solid var(--text-color);
 }
 
 .border {
@@ -82,7 +91,7 @@ h2 * {
 .content {
     margin: 20px;
     margin-top: 50px;
-    color: white;
+    color: var(--text-color);
 }
 
 #settings {
@@ -111,16 +120,16 @@ h2 * {
 
 #settings ul li button{
     background-color: var(--clr);
-    color: white;
-    border: solid white 1px;
+    color: var(--text-color);
+    border: solid var(--text-color) 1px;      
 }
 
 #variables {
     top: 1px;
     width: fit-content !important;
-    border-left: solid white 1px;
-    border-right: solid white 1px;
-    border-bottom: solid white 1px;
+    border-left: solid var(--text-color) 1px;
+    border-right: solid var(--text-color) 1px;
+    border-bottom: solid var(--text-color) 1px;
     background-color: var(--clr);
     overflow:hidden;
     transition:transform 0.3s ease-out; 
@@ -132,6 +141,10 @@ h2 * {
 }
 .inactive {
     transform: scale3d(0, 0, 0);
+}
+
+.check {
+    background-color: var(--checked) !important;
 }
 
 .formula {
@@ -156,7 +169,7 @@ h2 * {
     margin-top: auto !important;
     margin-bottom: auto !important;
     margin-left: 30px !important;
-    border: solid white 1px;
+    border: solid var(--text-color) 1px;
     padding: 5px;
     top: 0 !important;    
     bottom: 0 !important;
@@ -185,6 +198,15 @@ button * {
 }
 
 @media (max-width: 1000px){
+
+    h3 {
+        font-size: 24px;
+    }
+
+    p {
+        font-size: 18px;
+    }
+
     .nav ul li {
         width: 100px;
         height: 50px;
@@ -199,13 +221,27 @@ button * {
         margin-top: 100px;
     }
 
-    #settings ul li button{
-        font-size: 24px;
-        padding-left: 3px;
-        padding-right: 3px;
+    #settings ul {
+        top: -61px;
     }
 
+    #settings ul li button{
+        font-size: 30px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+
     #variables {
-        top: 5px;
+        top: 1px;
+    }
+
+    #results, #using {
+        overflow-x: auto;
+        white-space: nowrap;
+        max-width: 200px;
+        height: 39px;
+        position: relative;
+        top: 10px;
     }
 }

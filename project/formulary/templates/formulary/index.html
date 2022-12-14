@@ -32,9 +32,11 @@
                 <li id="settings">
                     <ul>
                         <li>
-                            <div id="results"><button onclick="showVariables('results')">+</button></div>
+                            <button onclick="showVariables('results')" id="results_button">+</button>
+                            <div id="results"></div>
                             =
-                            <div id="using"><button onclick="showVariables('using')">+</button></div>                                     
+                            <div id="using"></div>     
+                            <button onclick="showVariables('using')" id="using_button">+</button>                                                            
                         </li>
                         <li id="variables" class="inactive">
                              <div id="options_results" hidden>
