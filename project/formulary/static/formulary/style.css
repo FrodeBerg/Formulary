@@ -127,7 +127,7 @@ hr {
     top: 1px;
     width: fit-content !important;
     border: 1px solid var(--text-color);
-    border-bottom: 1px solid var(--clr);
+    border-top: 1px solid var(--clr);
     background-color: var(--clr);
     overflow:hidden;
     transition:transform 0.3s ease-out; 
@@ -216,11 +216,11 @@ button * {
         height: 50px;
     }
     .border {
-        margin-top: 100px;
+        margin-top: 101px;
     }
 
     #settings ul {
-        top: -62px;
+        top: -61px;
     }
 
     #settings ul li button{
