@@ -59,15 +59,20 @@ function getFormula(math){
     let results = dict["results"].join("+").toString();
     let using = dict["using"].join("+").toString();
 
+    // Searching message
+    categories = document.querySelector("#categories");
+    categories.innerHTML = "";
+    finding = document.createElement("h2");
+    finding.innerHTML = "Searching for Formulas";
+    categories.append(finding)
+
     // get formula
     fetch(`/formula/${math}/?r=${results}&u=${using}`)
     .then(response => response.json())
     .then(formulas => {
 
         // Clear categories tab
-        document.querySelector("#categories").innerHTML = "";
-
-        categories = document.querySelector("#categories");
+        categories.innerHTML = "";
 
         // Check if any formulas
         if (formulas.formulas.length < 1){

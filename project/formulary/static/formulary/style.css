@@ -168,6 +168,7 @@ hr {
     margin-left: 30px !important;
     border: solid var(--text-color) 1px;
     padding: 5px;
+    background-color: var(--checked);
     top: 0 !important;    
     bottom: 0 !important;
 }
