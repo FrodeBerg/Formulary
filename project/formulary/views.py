@@ -96,7 +96,7 @@ def formula(request, name):
         "formulas": [formula.serialize() for formula in formulas]                    
     }      
     # Try and create combined formulas    
-    if not formulas.exists():
+    if not formulas.exists() and not math:
         findResult(using, None)
 
     return JsonResponse(combinedFormula, safe=False)

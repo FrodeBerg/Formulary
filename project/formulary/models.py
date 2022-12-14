@@ -38,9 +38,9 @@ class Formula(models.Model):
         return {
             "id": self.id,
             "formula": "\[" + self.formula + "\]",
-            "using": [variable.variable for variable in self.using.all()],
-            "product": [variable.variable for variable in self.product.all()],
-            "variableDescription": [variable.variable + " = " + variable.description for variable in self.product.all()] + [variable.variable + " = " + variable.description for variable in self.using.all()],
+            "using": [variable.serialize() for variable in self.using.all()],
+            "product": [variable.serialize() for variable in self.product.all()],
+            "variableDescription": ["\[" +  variable.variable + "\]" + " = " + variable.description for variable in self.product.all()] + ["\[" + variable.variable + "\]" + " = " + variable.description for variable in self.using.all()],
             "math": self.math,
             "category": self.category.name,
             "tag": self.category.tag,

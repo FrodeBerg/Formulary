@@ -136,12 +136,12 @@ function normalFormula(element){
 
 // Creates only valid variables 
 function formulaVariables(variable, name){
-    button = document.getElementById(`${name}_${variable}`);
+    button = document.getElementById(`${name}_${variable.id}`);
     if (button == null){
         button = document.createElement("button");
-        button.setAttribute("id", `${name}_${variable}`);
-        button.setAttribute("onclick", `add("${variable}", "${name}")`)
-        button.innerHTML = "\\[" + variable + "\\]";
+        button.setAttribute("id", `${name}_${variable.id}`);
+        button.setAttribute("onclick", `add("${variable.variable}", "${variable.id}","${name}")`)
+        button.innerHTML = "\\[" + variable.variable + "\\]";
         document.getElementById(`options_${name}`).append(button);
     } 
 }
@@ -161,7 +161,9 @@ function createFormula(element, marginLeft, index) {
     if (element.variableDescription.length != 0) {
         p2 = document.createElement("p");
         element.variableDescription.forEach(description => {
-            p2.innerHTML += description + "</br>";
+            if (!p2.innerHTML.includes(description)){
+                p2.innerHTML += description + "</br>";                
+            }
         })
         p2.setAttribute("class", "formulaVariables");
         p2.setAttribute("id", `${element.id}i${index}`);  
@@ -227,10 +229,10 @@ function hideVariables(name){
 }
 
 // Add variable to sort
-function add(variable, name){
+function add(variable, id, name){
     let tmp = dict[name];
-    element = document.querySelector(`#${name}_${variable}`);
-    button = document.getElementById(`active_${name}_${variable}`);
+    element = document.querySelector(`#${name}_${id}`);
+    button = document.getElementById(`active_${name}_${id}`);
     list = document.getElementById(name);
     element.removeAttribute("class");  
 
@@ -241,9 +243,9 @@ function add(variable, name){
             return
         }
         button = document.createElement("button");
-        button.setAttribute("id", `active_${name}_${variable}`);
+        button.setAttribute("id", `active_${name}_${id}`);
         button.innerHTML = "\\[" + variable + "\\]";
-        button.setAttribute("onclick", `add("${variable}", "${name}")`);
+        button.setAttribute("onclick", `add("${variable}", "${id}","${name}")`);
         if (name == "results"){
             list.append(button);            
         } else {
