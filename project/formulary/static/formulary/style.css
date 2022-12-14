@@ -222,10 +222,11 @@ button * {
     }
 
     #settings ul {
-        top: -61px;
+        top: -63px;
     }
 
     #settings ul li button{
+        height: 40px;
         font-size: 30px;
         padding-left: 10px;
         padding-right: 10px;
@@ -240,7 +241,7 @@ button * {
         overflow-x: auto;
         white-space: nowrap;
         max-width: 200px;
-        height: 39px;
+        height: 40px;
         position: relative;
         top: 10px;
     }
