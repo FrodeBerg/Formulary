@@ -153,27 +153,36 @@ function createFormula(element, marginLeft, index) {
 
     // Formula
     p1 = document.createElement("p");
-    p1.setAttribute("onmouseover", `showVariableDescription(this, '${element.id}i${index}')`)
-    p1.setAttribute("onmouseout", `hideVariableDescription(this, '${element.id}i${index}')`)
+
     p1.innerHTML = element.formula;
     p1.setAttribute("class", "formula");
 
     // Variable description
-    p2 = document.createElement("p");
-    element.variableDescription.forEach(description => {
-        p2.innerHTML += description + "</br>";
-    })
-    p2.setAttribute("class", "formulaVariables");
-    p2.setAttribute("id", `${element.id}i${index}`)
+    if (element.variableDescription.length != 0) {
+        p2 = document.createElement("p");
+        element.variableDescription.forEach(description => {
+            p2.innerHTML += description + "</br>";
+        })
+        p2.setAttribute("class", "formulaVariables");
+        p2.setAttribute("id", `${element.id}i${index}`);  
+        p1.setAttribute("onmouseover", `showVariableDescription(this, '${element.id}i${index}')`);
+        p1.setAttribute("onmouseout", `hideVariableDescription(this, '${element.id}i${index}')`);  
+        ul.append(p1, p2); 
+    }else {
+        ul.append(p1);
+    }
+
 
     // Formula description
     p3 = document.createElement("p");
     p3.innerHTML = element.description;
     p3.setAttribute("class", "formulaDescription");                
-    ul.append(p1, p2, p3);
+    ul.append(p3);
     ul.style.marginLeft = marginLeft;
-    div.append(ul);   
-    hideVariableDescription(p1, element.id + "i" + index);     
+    div.append(ul);
+    if (element.variableDescription.length != 0){
+        hideVariableDescription(p1, element.id + "i" + index);         
+    }    
 }
 
 // Show description on hover
