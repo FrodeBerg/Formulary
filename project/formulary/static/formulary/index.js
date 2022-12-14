@@ -10,6 +10,9 @@ var global_math = "";
 
 function moveIndicator(move){
 
+    // Hide info 
+    info = document.getElementById("info_form");
+    info.hidden = true;
     // Move indicator
     document.querySelector("#indicator").style.left = move;
 
@@ -32,7 +35,7 @@ function moveIndicator(move){
     document.getElementById('results_button').removeAttribute("class");
     document.getElementById('using_button').removeAttribute("class");
 
-    // dict with arrays 
+    // Reset dict with arrays 
     dict["results"] = [];
     dict["using"] = [];
 
@@ -42,6 +45,9 @@ function moveIndicator(move){
     }
     if (move == "200px"){
         getFormula("physics")
+    }
+    if (move == "-50px"){
+        info.hidden = false;
     }
 }
 
