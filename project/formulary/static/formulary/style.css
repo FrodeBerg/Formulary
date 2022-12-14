@@ -68,9 +68,8 @@ h2 * {
     width: 70px;
     height: 30px;
     background-color: var(--clr);
-    border-top:    1px solid var(--text-color);
-    border-right:  1px solid var(--text-color); 
-    border-left: 1px solid var(--text-color);
+    border: 1px solid var(--text-color);
+    border-bottom: 1px solid var(--clr);
     margin: 0;
     transition: 0.5s ease-out;
     transition-property: left;
@@ -127,9 +126,8 @@ hr {
 #variables {
     top: 1px;
     width: fit-content !important;
-    border-left: solid var(--text-color) 1px;
-    border-right: solid var(--text-color) 1px;
-    border-bottom: solid var(--text-color) 1px;
+    border: 1px solid var(--text-color);
+    border-bottom: 1px solid var(--clr);
     background-color: var(--clr);
     overflow:hidden;
     transition:transform 0.3s ease-out; 
@@ -218,11 +216,11 @@ button * {
         height: 50px;
     }
     .border {
-        margin-top: 99.8px;
+        margin-top: 100px;
     }
 
     #settings ul {
-        top: -62.1px;
+        top: -62px;
     }
 
     #settings ul li button{
