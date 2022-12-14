@@ -29,6 +29,8 @@ function moveIndicator(move){
     hideVariables("using");
 
     document.getElementById('variables').className = "inactive";
+    document.getElementById('results_button').removeAttribute("class");
+    document.getElementById('using_button').removeAttribute("class");
 
     // dict with arrays 
     dict["results"] = [];
